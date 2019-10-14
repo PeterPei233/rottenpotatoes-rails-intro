@@ -13,11 +13,18 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.all_ratings
     @movies = Movie.all
+    if params[:ratings].nil?
+      params[:ratings] = session[:ratings]
+    end
+    if params[:sort_by].nil?
+      params[:sort_by] = session[:sort_by]
+    end
     if params[:ratings]
-      puts "hhh"
+      session[:ratings] = params[:ratings]
       @movies = Movie.find_ratings(params[:ratings].keys)
     end
     if params[:sort_by]
+      session[:sort_by] = params[:sort_by]
       @movies = @movies.order("#{params[:sort_by]} ASC")
     end
   end
