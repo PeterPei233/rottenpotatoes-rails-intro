@@ -31,9 +31,9 @@ class MoviesController < ApplicationController
       flash.keep
       if (params[:sort_by].nil? && params[:ratings].nil? && session[:sort_by] && session[:ratings])
         redirect_to movies_path :sort_by => session[:sort_by], :ratings => session[:ratings]
-      elsif (params[:sort_by] && session[:ratings])
+      elsif (params[:ratings].nil? && session[:ratings])
         redirect_to movies_path :sort_by => params[:sort_by], :ratings => session[:ratings]
-      elsif (params[:ratings] && session[:sort_by])
+      elsif (params[:sort_by].nil? && session[:sort_by])
         redirect_to movies_path :sort_by => session[:sort_by], :ratings => params[:ratings]
       end
     end
